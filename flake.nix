@@ -7,19 +7,13 @@
 
   outputs = { self, nixpkgs }: 
     let 
-      supportedSystems = [ "x86_64-linux" ];
-      forAllSystems = pkgsRaw: evaluation: (nixpkgs.lib.genAttrs supportedSystems) (system:  evaluation system pkgsRaw.${system});
-    in {
-      packages = forAllSystems nixpkgs.legacyPackages (system: pkgs: rec {
-          default = pkgs.hello;
-          });
-      devShells = forAllSystems nixpkgs.legacyPackages (system: pkgs: rec {
-        default = pkgs.mkShellNoCC rec {
-          nativeBuildInputs = [ pkgs.pkg-config ];
-          buildInputs = with pkgs; [
-            gcc
-          ];
-        };
-      });
-    }
+    supportedSystems = [ "x86_64-linux" ];
+  forAllSystems = pkgsRaw: evaluation: (nixpkgs.lib.genAttrs supportedSystems) (system:  evaluation system pkgsRaw.${system});
+    src = ./.;
+  in {
+    apps = forAllSystems nixpkgs.legacyPackages (system: pkgs: rec {
+      default = linkscript;
+      linkscript = src/link.sh;
+        });
+  }
 }
