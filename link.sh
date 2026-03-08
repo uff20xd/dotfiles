@@ -23,3 +23,4 @@ symlinkFile() {
 
 symlinkFile "neovim" ".config/nvim"
 symlinkFile "tmux" ".config/tmux"
+symlinkFile "saltz" ".config/saltz"
