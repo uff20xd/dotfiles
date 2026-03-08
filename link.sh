@@ -16,7 +16,9 @@ symlinkFile() {
     exit 1
   fi
   mkdir -p "$(dirname "$destination")"
-  echo "$filename to $destination"
+
+  ln -s "$filename" "$destination"
+  echo "[OK] Linked: $filename -> $destination"
 }
 
 symlinkFile "neovim" ".config/nvim"
