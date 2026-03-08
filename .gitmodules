@@ -1,3 +1,6 @@
 [submodule "neovim"]
 	path = neovim
 	url = git@github.com:uff20xd/neovim-setup
+[submodule "neovim-lazy"]
+	path = neovim-lazy
+	url = git@github.com:uff20xd/neovim-lazy-setup
