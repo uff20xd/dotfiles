@@ -9,10 +9,17 @@
     let 
       supportedSystems = [ "x86_64-linux" ];
       forAllSystems = pkgsRaw: evaluation: (nixpkgs.lib.genAttrs supportedSystems) (system:  evaluation system pkgsRaw.${system});
-    in rec {
-
+    in {
       packages = forAllSystems nixpkgs.legacyPackages (system: pkgs: rec {
-        default = pkgs.hello;
+          default = pkgs.hello;
+          });
+      devShells = forAllSystems nixpkgs.legacyPackages (system: pkgs: rec {
+        default = pkgs.mkShellNoCC rec {
+          nativeBuildInputs = [ pkgs.pkg-config ];
+          buildInputs = with pkgs; [
+            gcc
+          ];
+        };
       });
     }
 }
