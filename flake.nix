@@ -13,7 +13,10 @@
   in {
     apps = forAllSystems nixpkgs.legacyPackages (system: pkgs: rec {
       default = linkscript;
-      linkscript = src/link.sh;
+      linkscript = {
+        type = "app";
+        program = "${src}/link.sh";
+        };
         });
-  }
+  };
 }
